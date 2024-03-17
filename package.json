@@ -1,0 +1,26 @@
+{
+  "name": "ph-health-care-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mdshahin-ahmed/PH-Health-Care-Server.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mdshahin-ahmed/PH-Health-Care-Server/issues"
+  },
+  "homepage": "https://github.com/mdshahin-ahmed/PH-Health-Care-Server#readme",
+  "devDependencies": {
+    "@types/node": "^20.11.28",
+    "prisma": "^5.11.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.2"
+  }
+}
