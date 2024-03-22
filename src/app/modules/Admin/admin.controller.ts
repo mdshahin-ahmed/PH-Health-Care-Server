@@ -14,7 +14,8 @@ const getAllAdminFromDB = async (req: Request, res: Response) => {
     res.status(200).json({
       success: true,
       message: "Admin data fetched!",
-      data: result,
+      meta: result.meta,
+      data: result.data,
     });
   } catch (err) {
     res.status(500).json({
