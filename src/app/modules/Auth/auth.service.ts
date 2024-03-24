@@ -30,8 +30,21 @@ const loginUser = async (payload: { email: string; password: string }) => {
     }
   );
 
+  const refreshToken = jwt.sign(
+    {
+      email: userData.email,
+      role: userData.role,
+    },
+    "shahinAhmed",
+    {
+      algorithm: "HS256",
+      expiresIn: "30d",
+    }
+  );
+
   return {
     accessToken,
+    refreshToken,
     needPasswordChange: userData.needPasswordChange,
   };
 };

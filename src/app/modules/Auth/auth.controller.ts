@@ -7,11 +7,17 @@ import httpStatus from "http-status";
 const loginUser = catchAsync(async (req: Request, res: Response) => {
   const result = await authServices.loginUser(req.body);
 
+  const { refreshToken, ...rest } = result;
+  res.cookie("refreshToken", refreshToken, {
+    secure: false,
+    httpOnly: true,
+  });
+
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
     message: "Logged in successfully!",
-    data: result,
+    data: rest,
   });
 });
 
