@@ -8,10 +8,15 @@ const loginUser = async (payload: { email: string; password: string }) => {
       email: payload.email,
     },
   });
+
   const isCorrectPassword: boolean = await bcrypt.compare(
     payload.password,
     userData.password
   );
+
+  if (!isCorrectPassword) {
+    throw new Error("Password incorrect");
+  }
 
   const accessToken = jwt.sign(
     {
@@ -21,12 +26,14 @@ const loginUser = async (payload: { email: string; password: string }) => {
     "shahin",
     {
       algorithm: "HS256",
-      expiresIn: "15m",
+      expiresIn: "5m",
     }
   );
-  console.log(accessToken);
 
-  return userData;
+  return {
+    accessToken,
+    needPasswordChange: userData.needPasswordChange,
+  };
 };
 
 export const authServices = {
