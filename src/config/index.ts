@@ -15,4 +15,9 @@ export default {
     reset_pass_token_expired_in:
       process.env.RESET_PASSWORD_REFRESH_TOKEN_EXPIRES_IN,
   },
+  reset_password_link: process.env.RESET_PASSWORD_LINK,
+  emailSender: {
+    email: process.env.EMAIL,
+    app_password: process.env.APP_PASSWORD,
+  },
 };
