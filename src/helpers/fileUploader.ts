@@ -1,5 +1,6 @@
 import multer from "multer";
 import path from "path";
+import fs from "fs";
 
 import { v2 as cloudinary } from "cloudinary";
 
@@ -21,13 +22,20 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 const uploadToCloudinary = async (file: any) => {
-  cloudinary.uploader.upload(
-    "E:/Level2/POSTGRESQL/PH-Health-Care-Server/uploads/test.jpg",
-    { public_id: "olympic_flag" },
-    function (error, result) {
-      console.log(result);
-    }
-  );
+  return new Promise((resolve, reject) => {
+    cloudinary.uploader.upload(
+      file.path,
+      { public_id: file.originalname },
+      (error, result) => {
+        fs.unlinkSync(file.path);
+        if (error) {
+          reject(error);
+        } else {
+          resolve(result);
+        }
+      }
+    );
+  });
 };
 
 export const fileUploader = {
