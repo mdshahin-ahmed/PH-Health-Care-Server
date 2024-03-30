@@ -4,8 +4,15 @@ import { fileUploader } from "../../../helpers/fileUploader";
 import auth from "../../middlewares/auth";
 import { userController } from "./user.controller";
 import { userValidation } from "./user.validation";
+import validateRequest from "../../middlewares/validateRequest";
 
 const router = express.Router();
+
+router.get(
+  "/",
+  auth(UserRole.SUPER_ADMIN, UserRole.ADMIN),
+  userController.getAllUserFromDB
+);
 
 router.post(
   "/create-admin",
@@ -34,6 +41,13 @@ router.post(
     req.body = userValidation.createPatient.parse(JSON.parse(req.body.data));
     return userController.createPatient(req, res, next);
   }
+);
+
+router.patch(
+  "/:id/status",
+  auth(UserRole.SUPER_ADMIN, UserRole.ADMIN),
+  validateRequest(userValidation.updateStatus),
+  userController.changeProfileStatus
 );
 
 export const userRoutes = router;
